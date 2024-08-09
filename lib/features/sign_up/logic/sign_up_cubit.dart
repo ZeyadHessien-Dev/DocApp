@@ -14,7 +14,7 @@ class SignupCubit extends Cubit<SignupState> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmationController =
-      TextEditingController();
+  TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   void emitSignupStates() async {
