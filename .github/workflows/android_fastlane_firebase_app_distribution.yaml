@@ -5,7 +5,7 @@ name: Android Fastlane with Firebase App Distribution Workflow
 on:
   push:
     branches:
-      - development
+      - features/CI-CD
 
 jobs:
   # name of job
