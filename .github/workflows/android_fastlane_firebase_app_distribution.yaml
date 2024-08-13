@@ -1,0 +1,49 @@
+# name of its workflow
+name: Android Fastlane with Firebase App Distribution Workflow
+
+# workflow work when push for master branch
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  # name of job
+  distribute_to_firebase:
+    # use ubuntu latest version because android need to ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      # 1 - workflow will check the repo
+      - name: Checkout my repo code
+        uses: actions/checkout@v2
+
+      # 2 - android need to jdk to work workflow, like in actual we need to java because work android folder
+      - name: Set up JDK 11 [Use Any Version]
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin' # the most stable version
+
+      # 3 - install flutter
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      # 4 - Install ruby to work fastlane file
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.4"
+          bundler-cache: true
+          working-directory: android
+
+      # 5 - make a release then update for firebase app distribution
+      - name: Build and Distribute App
+        env:
+          FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
+        run: |
+          bundle exec fastlane android firebase_distribution
+        working-directory: android
+
+
