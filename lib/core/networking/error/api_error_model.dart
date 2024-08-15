@@ -23,9 +23,13 @@ class ApiErrorModel {
   String errorMsg() {
     if (errors == null || errors is List && (errors as List).isEmpty) return message ?? "Unknown error occurred";
 
-    if (errors is Map && (errors as Map<String, dynamic>).isEmpty) return message ?? "Unknown error occurred";
-    else return errors!.entries.map((error) {
+    if (errors is Map && (errors as Map<String, dynamic>).isEmpty) {
+      return message ?? "Unknown error occurred";
+    } else {
+      return errors!.entries.map((error) {
       return error.value.join(', ');
     }).join('\n');
+    }
   }
 }
+
