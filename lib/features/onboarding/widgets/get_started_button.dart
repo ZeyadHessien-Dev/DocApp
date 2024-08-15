@@ -4,6 +4,7 @@ import 'package:flutter_complete_project/core/theming/colors.dart';
 import 'package:flutter_complete_project/core/theming/styles.dart';
 
 import '../../../core/routing/routes.dart';
+import '../../../main.dart';
 
 class GetStartedButton extends StatelessWidget {
   const GetStartedButton({super.key});
@@ -12,7 +13,7 @@ class GetStartedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        context.pushNamed(Routes.loginScreen);
+        isLoggedInUser ? context.pushNamed(Routes.homeScreen) : context.pushNamed(Routes.loginScreen);
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(ColorsManager.mainBlue),
